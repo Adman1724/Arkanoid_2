@@ -10,9 +10,9 @@ import com.example.adamm.arkanoid.screen.ScreenManger;
 
 public class MainGame extends ApplicationAdapter {
 	public static int WIDTH=600, HEIGHT= 1000;
-	 private SpriteBatch batch;
+	private SpriteBatch batch;
 
-	
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -38,7 +38,7 @@ public class MainGame extends ApplicationAdapter {
 
 
 	}
-	
+
 	@Override
 	public void dispose () {
 		if (ScreenManger.getCurrentScreeen()!=null)
