@@ -63,56 +63,56 @@ public class Player extends Entity {
 
         if(game.getBall().getHitbox().overlaps(hitboxA)&&game.getBall().getHitbox().overlaps(hitboxB)){
             game.getBall().resetMove();
-            game.getBall().getPosition().y=game.getBall().getPosition().y+3;
-            game.getBall().setMove(1,-1);
+            game.getBall().getPosition().y=game.getBall().getPosition().y+15;
+            game.getBall().setMove(3,-3);
 
         }
         else if(game.getBall().getHitbox().overlaps(hitboxB)&&game.getBall().getHitbox().overlaps(hitboxC)){
             if(game.getBall().getHitbox().overlaps(hitboxS)){
-                game.getBall().getPosition().y=game.getBall().getPosition().y+3;
+                game.getBall().getPosition().y=game.getBall().getPosition().y+20;
                 game.getBall().resetMove();
-                game.getBall().setMove(1,-3);
+                game.getBall().setMove(1,-5);
 
 
             }
             else{
                 game.getBall().resetMove();
-                game.getBall().getPosition().y=game.getBall().getPosition().y+3;
-                game.getBall().setMove(1,-2);
+                game.getBall().getPosition().y=game.getBall().getPosition().y+20;
+                game.getBall().setMove(2,-4);
 
             }
         }
         else if(game.getBall().getHitbox().overlaps(hitboxC)&&game.getBall().getHitbox().overlaps(hitboxD)){
             if(game.getBall().getHitbox().overlaps(hitboxS)){
-                game.getBall().getPosition().y=game.getBall().getPosition().y+3;
+                game.getBall().getPosition().y=game.getBall().getPosition().y+20;
                 game.getBall().resetMove();
-                game.getBall().setMove(1,-3);
+                game.getBall().setMove(1,-5);
 
             }
             else{
                 game.getBall().resetMove();
-                game.getBall().getPosition().y=game.getBall().getPosition().y+3;
-                game.getBall().setMove(1,-2);
+                game.getBall().getPosition().y=game.getBall().getPosition().y+20;
+                game.getBall().setMove(2,-4);
 
             }
 
         }
         else if(game.getBall().getHitbox().overlaps(hitboxD)&&game.getBall().getHitbox().overlaps(hitboxE)){
             game.getBall().resetMove();
-            game.getBall().getPosition().y=game.getBall().getPosition().y+3;
-            game.getBall().setMove(1,-1);
+            game.getBall().getPosition().y=game.getBall().getPosition().y+20;
+            game.getBall().setMove(3,-3);
 
         }
         else if(game.getBall().getHitbox().overlaps(hitboxA)){
             game.getBall().resetMove();
-            game.getBall().getPosition().y=game.getBall().getPosition().y+3;
-            game.getBall().setMove(-1,-1);
+            game.getBall().getPosition().y=game.getBall().getPosition().y+20;
+            game.getBall().setMove(-3,-3);
 
         }
         else if(game.getBall().getHitbox().overlaps(hitboxE)){
             game.getBall().resetMove();
-            game.getBall().getPosition().y=game.getBall().getPosition().y+3;
-            game.getBall().setMove(-1,-1);
+            game.getBall().getPosition().y=game.getBall().getPosition().y+20;
+            game.getBall().setMove(-3,-3);
 
         }
 

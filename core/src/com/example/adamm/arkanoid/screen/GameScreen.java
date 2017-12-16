@@ -11,9 +11,12 @@ import com.example.adamm.arkanoid.entity.Player;
  * Created by adamm on 11/1/2017.
  */
 
-public class MenuScreen extends Screen {
+public class GameScreen extends Screen {
     private OrthoCamera camera;
     private EntityManager EM;
+    public GameScreen(){
+        this.create();
+    }
     @Override
     public void create() {
         camera=new OrthoCamera();
@@ -58,4 +61,5 @@ public class MenuScreen extends Screen {
     public void resume() {
 
     }
+
 }

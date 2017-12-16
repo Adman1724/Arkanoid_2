@@ -3,9 +3,9 @@ package com.example.adamm.arkanoid;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.example.adamm.arkanoid.screen.MenuScreen;
+import com.example.adamm.arkanoid.screen.GameOverScreen;
+import com.example.adamm.arkanoid.screen.GameScreen;
 import com.example.adamm.arkanoid.screen.ScreenManger;
 
 public class MainGame extends ApplicationAdapter {
@@ -17,7 +17,13 @@ public class MainGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 
-		ScreenManger.setScreen(new MenuScreen());
+		ScreenManger.setScreen(new GameScreen());
+	}
+	public static void createGameOver(String a ){
+		ScreenManger.setScreen( new GameOverScreen(a));
+	}
+	public static void createNewGame(){
+		ScreenManger.setScreen(new GameScreen());
 	}
 
 	@Override

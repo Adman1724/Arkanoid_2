@@ -41,7 +41,7 @@ public class Ball extends Entity {
         if(this.pos.x<=0||this.pos.x>= MainGame.WIDTH-19)
             this.direction.x=0-this.direction.x;
 
-        if(this.pos.y>=MainGame.HEIGHT||this.pos.y<=0)
+        if(this.pos.y>=MainGame.HEIGHT)
             this.direction.y=0-this.direction.y;
         Brick b;
 
@@ -54,33 +54,50 @@ public class Ball extends Entity {
             hitboxU= new Rectangle((int)this.pos.x,(int)this.pos.y, 24 ,5 );
             hitboxL= new Rectangle((int)this.pos.x,(int)this.pos.y, 5 ,24 );
             hitboxR= new Rectangle((int)this.pos.x+19, (int)this.pos.y, 5 ,24 );
+            if(this.pos.y<=0){
+                this.pos.x=300;
+                this.pos.y=300;
+                this.direction.x=3;
+                this.direction.y=3;
+                EM.getLives().setLivesCount(EM.getLives().getLivesCount()-1);
+
+            }
             if(wasRemove)
             {
                 if(b.getHitbox().overlaps(hitboxL)&&b.getHitbox().overlaps(hitboxD)&&b.getHitbox().overlaps(hitboxR))
                 {
                     direction.y = -direction.y;
+
                     it.remove();
-                    //game.setScore(game.getScore()+10);
+                    Score updateScore=EM.getScore();
+                    updateScore.setScoreCount(updateScore.getScoreCount()+15);
+                    EM.setScore(updateScore);
                     wasRemove=!wasRemove;
                 }
                 else if(b.getHitbox().overlaps(hitboxL)&&b.getHitbox().overlaps(hitboxU)&&b.getHitbox().overlaps(hitboxD))
                 {
                     direction.x = -direction.x;
                     it.remove();
-                   // game.setScore(game.getScore()+10);
+                    Score updateScore=EM.getScore();
+                    updateScore.setScoreCount(updateScore.getScoreCount()+15);
+                    EM.setScore(updateScore);
                     wasRemove=!wasRemove;}
                 else if(b.getHitbox().overlaps(hitboxL)&&b.getHitbox().overlaps(hitboxU)&&b.getHitbox().overlaps(hitboxR))
                 {
                     direction.y = -direction.y;
                     it.remove();
-                    //game.setScore(game.getScore()+10);
+                    Score updateScore=EM.getScore();
+                    updateScore.setScoreCount(updateScore.getScoreCount()+15);
+                    EM.setScore(updateScore);
                     wasRemove=!wasRemove;
                 }
                 else if(b.getHitbox().overlaps(hitboxU)&&b.getHitbox().overlaps(hitboxR)&&b.getHitbox().overlaps(hitboxD))
                 {
                     direction.x = -direction.x;
                     it.remove();
-                    //game.setScore(game.getScore()+10);
+                    Score updateScore=EM.getScore();
+                    updateScore.setScoreCount(updateScore.getScoreCount()+15);
+                    EM.setScore(updateScore);
                     wasRemove=!wasRemove;
                 }
                 else {
@@ -89,7 +106,9 @@ public class Ball extends Entity {
                         if(direction.x>=0&& direction.y>=0)direction.y = -direction.y;
                         else direction.x = -direction.x;
                         it.remove();
-                        //game.setScore(game.getScore()+10);
+                        Score updateScore=EM.getScore();
+                        updateScore.setScoreCount(updateScore.getScoreCount()+15);
+                        EM.setScore(updateScore);
                         wasRemove=!wasRemove;
                     }
                     else if(b.getHitbox().overlaps(hitboxD)&&b.getHitbox().overlaps(hitboxR)&&!(b.getHitbox().overlaps(hitboxU))&&!(b.getHitbox().overlaps(hitboxL)))
@@ -97,7 +116,9 @@ public class Ball extends Entity {
                         if(direction.x<=0&&direction.y>=0)direction.y = -direction.y;
                         else direction.x = -direction.x;
                         it.remove();
-                        //game.setScore(game.getScore()+10);
+                        Score updateScore=EM.getScore();
+                        updateScore.setScoreCount(updateScore.getScoreCount()+15);
+                        EM.setScore(updateScore);
                         wasRemove=!wasRemove;
                     }
                     else if(b.getHitbox().overlaps(hitboxU)&&b.getHitbox().overlaps(hitboxR)&&!(b.getHitbox().overlaps(hitboxD))&&!(b.getHitbox().overlaps(hitboxL)))
@@ -105,7 +126,9 @@ public class Ball extends Entity {
                         if(direction.x>=0&&direction.y<=0)direction.x = -direction.x;
                         else direction.y = -direction.y;
                         it.remove();
-                       // game.setScore(game.getScore()+10);
+                        Score updateScore=EM.getScore();
+                        updateScore.setScoreCount(updateScore.getScoreCount()+15);
+                        EM.setScore(updateScore);
                         wasRemove=!wasRemove;
                     }
                     else if(b.getHitbox().overlaps(hitboxU)&&b.getHitbox().overlaps(hitboxL)&&!(b.getHitbox().overlaps(hitboxD))&&!(b.getHitbox().overlaps(hitboxR)))
@@ -113,7 +136,9 @@ public class Ball extends Entity {
                         if(direction.x>=0&&direction.y<=0)direction.y = -direction.y;
                         else direction.x = -direction.x;
                         it.remove();
-                        //game.setScore(game.getScore()+10);
+                        Score updateScore=EM.getScore();
+                        updateScore.setScoreCount(updateScore.getScoreCount()+15);
+                        EM.setScore(updateScore);
                         wasRemove=!wasRemove;
                     }}
 
