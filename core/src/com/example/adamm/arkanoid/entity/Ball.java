@@ -1,5 +1,7 @@
 package com.example.adamm.arkanoid.entity;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
 import com.badlogic.gdx.math.Rectangle;
@@ -17,6 +19,7 @@ import java.util.Iterator;
  */
 
 public class Ball extends Entity {
+    Sound cing = Gdx.audio.newSound(Gdx.files.internal("Sounds/cing.wav"));
     private Rectangle hitboxL ;
     private Rectangle hitboxR ;
     private Rectangle hitboxU ;
@@ -67,7 +70,7 @@ public class Ball extends Entity {
                 if(b.getHitbox().overlaps(hitboxL)&&b.getHitbox().overlaps(hitboxD)&&b.getHitbox().overlaps(hitboxR))
                 {
                     direction.y = -direction.y;
-
+                    cing.play();
                     it.remove();
                     Score updateScore=EM.getScore();
                     updateScore.setScoreCount(updateScore.getScoreCount()+15);
@@ -77,6 +80,7 @@ public class Ball extends Entity {
                 else if(b.getHitbox().overlaps(hitboxL)&&b.getHitbox().overlaps(hitboxU)&&b.getHitbox().overlaps(hitboxD))
                 {
                     direction.x = -direction.x;
+                    cing.play();
                     it.remove();
                     Score updateScore=EM.getScore();
                     updateScore.setScoreCount(updateScore.getScoreCount()+15);
@@ -85,6 +89,7 @@ public class Ball extends Entity {
                 else if(b.getHitbox().overlaps(hitboxL)&&b.getHitbox().overlaps(hitboxU)&&b.getHitbox().overlaps(hitboxR))
                 {
                     direction.y = -direction.y;
+                    cing.play();
                     it.remove();
                     Score updateScore=EM.getScore();
                     updateScore.setScoreCount(updateScore.getScoreCount()+15);
@@ -94,6 +99,7 @@ public class Ball extends Entity {
                 else if(b.getHitbox().overlaps(hitboxU)&&b.getHitbox().overlaps(hitboxR)&&b.getHitbox().overlaps(hitboxD))
                 {
                     direction.x = -direction.x;
+                    cing.play();
                     it.remove();
                     Score updateScore=EM.getScore();
                     updateScore.setScoreCount(updateScore.getScoreCount()+15);
@@ -105,6 +111,7 @@ public class Ball extends Entity {
                     {
                         if(direction.x>=0&& direction.y>=0)direction.y = -direction.y;
                         else direction.x = -direction.x;
+                        cing.play();
                         it.remove();
                         Score updateScore=EM.getScore();
                         updateScore.setScoreCount(updateScore.getScoreCount()+15);
@@ -115,6 +122,7 @@ public class Ball extends Entity {
                     {
                         if(direction.x<=0&&direction.y>=0)direction.y = -direction.y;
                         else direction.x = -direction.x;
+                        cing.play();
                         it.remove();
                         Score updateScore=EM.getScore();
                         updateScore.setScoreCount(updateScore.getScoreCount()+15);
@@ -125,6 +133,7 @@ public class Ball extends Entity {
                     {
                         if(direction.x>=0&&direction.y<=0)direction.x = -direction.x;
                         else direction.y = -direction.y;
+                        cing.play();
                         it.remove();
                         Score updateScore=EM.getScore();
                         updateScore.setScoreCount(updateScore.getScoreCount()+15);
@@ -135,6 +144,7 @@ public class Ball extends Entity {
                     {
                         if(direction.x>=0&&direction.y<=0)direction.y = -direction.y;
                         else direction.x = -direction.x;
+                        cing.play();
                         it.remove();
                         Score updateScore=EM.getScore();
                         updateScore.setScoreCount(updateScore.getScoreCount()+15);

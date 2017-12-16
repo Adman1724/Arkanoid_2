@@ -1,5 +1,7 @@
 package com.example.adamm.arkanoid.screen;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.example.adamm.arkanoid.camera.OrthoCamera;
@@ -33,6 +35,8 @@ public class GameScreen extends Screen {
 
     @Override
     public void render(SpriteBatch sb) {
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
 

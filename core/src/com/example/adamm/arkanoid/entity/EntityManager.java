@@ -1,6 +1,8 @@
 package com.example.adamm.arkanoid.entity;
 
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -28,6 +30,7 @@ public class EntityManager {
     private Score score;
     private Lives lives;
     BitmapFont font = new BitmapFont();
+    Sound gameOver = Gdx.audio.newSound(Gdx.files.internal("Sounds/gameover.wav"));
 
 
 
@@ -67,7 +70,9 @@ public class EntityManager {
         score.update();
         lives.update();
         if(lives.getLivesCount()<0){
-            MainGame.createGameOver(score.getCount());
+           gameOver.play();
+
+            MainGame.createGameOver(score.getScoreCount());
         }
 
 

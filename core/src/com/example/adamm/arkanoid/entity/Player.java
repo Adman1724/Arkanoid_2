@@ -42,13 +42,27 @@ public class Player extends Entity {
         if(Gdx.input.isTouched()) {
             touch = camera.unprojectCoordinates(Gdx.input.getX(), Gdx.input.getY());
             if (touch.x < MainGame.WIDTH / 2)
-                if(this.pos.x>50||this.pos.x<MainGame.WIDTH-50)
+                if(this.pos.x>50&&this.pos.x<MainGame.WIDTH-50)
                     setDirection(-300, 0);
                 else setDirection(0,0);
             else
-            if(this.pos.x>50||this.pos.x<MainGame.WIDTH-50)
+            if(this.pos.x>50&&this.pos.x<MainGame.WIDTH-50)
                 setDirection(300, 0);
             else setDirection(0,0);
+        }
+        else{}
+        if((-0.4)<Gdx.input.getAccelerometerX()&&Gdx.input.getAccelerometerX()<(0.4)){setDirection(0,0);}
+         else if(Gdx.input.getAccelerometerX()>(0.4))
+        {
+           // float a=-200+(Gdx.input.getAccelerometerX()*(-30));
+            if(this.pos.x>50)
+            setDirection(-300, 0);
+        }
+        else if(Gdx.input.getAccelerometerX()<(-0.4))
+        {
+            //float a=200+(Gdx.input.getAccelerometerX()*(30));
+            if(this.pos.x<MainGame.WIDTH-30)
+            setDirection(300, 0);
         }
         else {setDirection(0,0);}
 
@@ -63,7 +77,7 @@ public class Player extends Entity {
 
         if(game.getBall().getHitbox().overlaps(hitboxA)&&game.getBall().getHitbox().overlaps(hitboxB)){
             game.getBall().resetMove();
-            game.getBall().getPosition().y=game.getBall().getPosition().y+15;
+            game.getBall().getPosition().y=game.getBall().getPosition().y+20;
             game.getBall().setMove(3,-3);
 
         }

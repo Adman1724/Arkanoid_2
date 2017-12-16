@@ -19,10 +19,11 @@ public class MainGame extends ApplicationAdapter {
 
 		ScreenManger.setScreen(new GameScreen());
 	}
-	public static void createGameOver(String a ){
+	public static void createGameOver(int a ){
 		ScreenManger.setScreen( new GameOverScreen(a));
 	}
 	public static void createNewGame(){
+
 		ScreenManger.setScreen(new GameScreen());
 	}
 

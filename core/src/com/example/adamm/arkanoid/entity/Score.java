@@ -1,5 +1,6 @@
 package com.example.adamm.arkanoid.entity;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.example.adamm.arkanoid.TextureManager;
@@ -10,7 +11,7 @@ import com.example.adamm.arkanoid.camera.OrthoCamera;
  */
 
 public class Score extends Entity  {
-
+    float accelX = Gdx.input.getAccelerometerX();
     private int scoreCount;
             private String count;
     public Score(Vector2 pos, Vector2 direction, OrthoCamera camera ){
@@ -21,7 +22,9 @@ public class Score extends Entity  {
     }
     @Override
     public void update() {
-        count=""+scoreCount;
+        accelX = Gdx.input.getAccelerometerX();
+        count=""+accelX;
+
     }
     public int getScoreCount(){
         return scoreCount;
