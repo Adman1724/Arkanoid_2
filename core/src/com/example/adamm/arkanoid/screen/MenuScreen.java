@@ -7,6 +7,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -30,7 +31,7 @@ public class MenuScreen implements Screen {
     private static final int PLAY_BUTTON_WIDTH = 300;
     private static final int PLAY_BUTTON_HEIGHT = 120;
     private static final int EXIT_BUTTON_Y = 100;
-    private static final int PLAY_BUTTON_Y = 230;
+    private static final int PLAY_BUTTON_Y = 530;
 
 
     final Arkanoid game;
@@ -73,15 +74,44 @@ public class MenuScreen implements Screen {
         game.batch.begin();
 
         game.scrollingBackground.updateAndRender(delta, game.batch);
+        int x = game.WIDTH /2 - EXIT_BUTTON_WIDTH ;
+        game.batch.draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+        game.batch.draw(playButtonActive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+        Gdx.app.log("MyTag", "before before  if");
+        if(Gdx.input.isTouched()) {
+            Rectangle exitRec = new Rectangle(x, game.HEIGHT-EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+            Gdx.app.log("kokot", ""+Gdx.input.getX()+"y:"+Gdx.input.getY());
+            if(exitRec.contains(Gdx.input.getX(),Gdx.input.getY())){
 
+                Gdx.app.log("doooo", "exit");
+                //mainMenuScreen.dispose();
+                Gdx.app.exit();
+
+            }
+            Rectangle playRec = new Rectangle(x, game.HEIGHT-PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+            Gdx.app.log("kokot", ""+Gdx.input.getX()+"y:"+Gdx.input.getY());
+            if(playRec.contains(Gdx.input.getX(),Gdx.input.getY())){
+
+                Gdx.app.log("doooo", "play");
+
+                //mainMenuScreen.dispose();
+                game.setScreen(new GameScreen(game));
+
+            }
+
+        }
+            /*
         int x = Arkanoid.WIDTH /2 - EXIT_BUTTON_WIDTH ;
+        Gdx.app.log("MyTag", "before if");
         if (touch.x < x + EXIT_BUTTON_WIDTH && touch.x > x && Arkanoid.HEIGHT - touch.y < EXIT_BUTTON_Y + EXIT_BUTTON_HEIGHT && Arkanoid.HEIGHT - touch.y > EXIT_BUTTON_Y) {
-            {game.batch.draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
+            {Gdx.app.log("MyTag", "if");
+                game.batch.draw(exitButtonActive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
 
                 mainMenuScreen.dispose();
                 Gdx.app.exit();
             }
         } else {
+            Gdx.app.log("MyTag", "else");
             game.batch.draw(exitButtonInactive, x, EXIT_BUTTON_Y, EXIT_BUTTON_WIDTH, EXIT_BUTTON_HEIGHT);
         }
 
@@ -95,6 +125,7 @@ public class MenuScreen implements Screen {
         } else {
             game.batch.draw(playButtonInactive, x, PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
         }
+        */
 
 
 

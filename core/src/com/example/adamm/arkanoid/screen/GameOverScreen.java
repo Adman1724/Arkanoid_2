@@ -6,11 +6,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
+
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,7 +23,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.example.adamm.arkanoid.Arkanoid;
 import com.badlogic.gdx.Screen;
-
+import com.example.adamm.arkanoid.camera.OrthoCamera;
 
 
 /**
@@ -30,46 +33,32 @@ import com.badlogic.gdx.Screen;
 public class GameOverScreen implements Screen {
     private static final int BANNER_WIDTH=350;
     private static final int BANNER_HEIGHT=200;
-   public BitmapFont scorefont = new BitmapFont();
+   public BitmapFont scorefont ;
     public int score;
-    public int score1,highscore;
-    private Texture playTexture;
-    private TextureRegion playTextureRegion;
-    private TextureRegionDrawable playTextureDrawable;
-    private ImageButton playButton;
-    private Stage stage;
+    public OrthoCamera camera;
+    public int highscore;
+
     Texture gameOverBanner;
     final Arkanoid game;
 
 
+
     public GameOverScreen(int score, final Arkanoid game){
+        Arkanoid.WIDTH=1080;
+        Arkanoid.HEIGHT=1920;
         this.score=score;
+
         this.game=game;
-        Preferences prefs=Gdx.app.getPreferences("rkanoid2");
+        Preferences prefs=Gdx.app.getPreferences("Akanoid2");
         this.highscore=prefs.getInteger("highscore", 0);
         if(score>highscore){
             prefs.putInteger("highscore", score);
             prefs.flush();
         }
-        gameOverBanner=new Texture("gameOverBanner.jpg");
-        scorefont=new BitmapFont();
-        playTexture = new Texture(Gdx.files.internal("play.PNG"));
-        playTextureRegion = new TextureRegion(playTexture);
-        playTextureDrawable = new TextureRegionDrawable(playTextureRegion);
-        playButton = new ImageButton(playTextureDrawable); //Set the button up
+        camera=game.camera;
+        gameOverBanner=new Texture("game_over.png");
+        scorefont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
 
-        stage = new Stage(new ScreenViewport()); //Set up a stage for the ui
-        stage.addActor(playButton); //Add the button to the stage to perform rendering and take input.
-        Gdx.input.setInputProcessor(stage);
-        playButton.addListener(new EventListener()
-        {
-            @Override
-            public boolean handle(Event event)
-            {
-                game.createNewGame();
-                return true;
-            }
-        });
 
 
 
@@ -78,9 +67,7 @@ public class GameOverScreen implements Screen {
     }
 
 
-    public void create() {
 
-    }
 
 
     public void update() {
@@ -88,22 +75,7 @@ public class GameOverScreen implements Screen {
     }
 
 
-    public void render(SpriteBatch sb) {
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        sb.begin();
-        sb.draw(gameOverBanner,Gdx.graphics.getWidth()/2-BANNER_WIDTH/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-15,BANNER_WIDTH,BANNER_HEIGHT);
-        GlyphLayout scoreLayout =new GlyphLayout(scorefont, "Score: \n"+score, Color.WHITE, 0 , Align.left, false);
-        GlyphLayout highscoreLayout =new GlyphLayout(scorefont, "HighScore: \n"+highscore, Color.WHITE, 0 , Align.left, false);
-        scorefont.draw(sb,scoreLayout,Gdx.graphics.getWidth()/2-scoreLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-15*2);
-        scorefont.draw(sb,highscoreLayout,Gdx.graphics.getWidth()/2-highscoreLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-scoreLayout.height-15*3);
-        //stage.act(Gdx.graphics.getDeltaTime()); //Perform ui logic
-        //stage.draw();
-
-
-        sb.end();
-    }
 
     @Override
     public void show() {
@@ -114,6 +86,7 @@ public class GameOverScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
         game.batch.draw(gameOverBanner,Gdx.graphics.getWidth()/2-BANNER_WIDTH/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-15,BANNER_WIDTH,BANNER_HEIGHT);
@@ -121,16 +94,41 @@ public class GameOverScreen implements Screen {
         GlyphLayout highscoreLayout =new GlyphLayout(scorefont, "HighScore: \n"+highscore, Color.WHITE, 0 , Align.left, false);
         scorefont.draw(game.batch,scoreLayout,Gdx.graphics.getWidth()/2-scoreLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-15*2);
         scorefont.draw(game.batch,highscoreLayout,Gdx.graphics.getWidth()/2-highscoreLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-scoreLayout.height-15*3);
-        //stage.act(Gdx.graphics.getDeltaTime()); //Perform ui logic
-        //stage.draw();
+        GlyphLayout tryAgainLayout =new GlyphLayout(scorefont, "Try Again: \n", Color.WHITE, 0 , Align.left, false);
+        GlyphLayout exitLayout =new GlyphLayout(scorefont, "Exit \n", Color.WHITE, 0 , Align.left, false);
 
+        scorefont.draw(game.batch,tryAgainLayout,Gdx.graphics.getWidth()/2-tryAgainLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-tryAgainLayout.height-15*8);
+        scorefont.draw(game.batch,exitLayout,Gdx.graphics.getWidth()/2-exitLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-exitLayout.height-15*15);
+        if(Gdx.input.isTouched()) {
+            Rectangle playRec = new Rectangle(Gdx.graphics.getWidth()/2-tryAgainLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-tryAgainLayout.height-15*8-Arkanoid.WIDTH+50, 300,50);
+            Gdx.app.log("kokot", "" + Gdx.input.getX() + "y:" + Gdx.input.getY());
+            if (playRec.contains(Gdx.input.getX(), Gdx.input.getY())) {
+
+
+                Gdx.app.log("doooo", "exit");
+                //mainMenuScreen.dispose();
+                Gdx.app.exit();
+            }
+            Rectangle exitRec = new Rectangle(Gdx.graphics.getWidth()/2-exitLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-exitLayout.height-15*15-Arkanoid.WIDTH+50, 300,50);
+            Gdx.app.log("kokot", "" + Gdx.input.getX() + "y:" + Gdx.input.getY());
+            if (exitRec.contains(Gdx.input.getX(), Gdx.input.getY())) {
+
+
+
+                Gdx.app.log("doooo", "play");
+
+                //mainMenuScreen.dispose();
+                game.setScreen(new GameScreen(game));
+
+            }
+        }
 
         game.batch.end();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        camera.resize();
 
     }
 

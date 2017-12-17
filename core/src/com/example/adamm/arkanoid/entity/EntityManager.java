@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.example.adamm.arkanoid.Level.Level;
 import com.example.adamm.arkanoid.Arkanoid;
 import com.example.adamm.arkanoid.camera.OrthoCamera;
+import com.example.adamm.arkanoid.screen.GameOverScreen;
 
 /**
  * Created by adamm on 11/5/2017.
@@ -68,8 +69,8 @@ public class EntityManager {
         lives.update();
         if(lives.getLivesCount()<0){
            gameOver.play();
+            game.createGameOver(this.getScore().getScoreCount());
 
-            game.createGameOver(score.getScoreCount());
         }
 
 

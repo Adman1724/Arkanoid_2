@@ -16,12 +16,14 @@ public class GameScreen implements Screen {
     private OrthoCamera camera;
     private EntityManager EM;
      Arkanoid game;
-    public SpriteBatch batch;
+
     public GameScreen(){
         this.create();
     }
     public GameScreen( Arkanoid game){
         this.game=game;
+        Arkanoid.WIDTH=600;
+        Arkanoid.HEIGHT=1000;
         camera=game.camera;
         this.create();
     }
@@ -38,20 +40,13 @@ public class GameScreen implements Screen {
 
 
         EM.update();
+
+
+
     }
 
 
-    public void render(SpriteBatch sb) {
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch=sb;
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
 
-
-        EM.render(batch);
-        batch.end();
-    }
 
 
     @Override
@@ -61,6 +56,15 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        game.batch.setProjectionMatrix(camera.combined);
+        game.batch.begin();
+
+        EM.render(game.batch);
+        EM.update();
+        game.batch.end();
 
     }
 

@@ -14,6 +14,7 @@ import com.example.adamm.arkanoid.screen.ScreenManger;
 
 public class Arkanoid extends Game {
 	public static int WIDTH=1080, HEIGHT= 1920;
+
 	public SpriteBatch batch;
 	public OrthoCamera camera;
 	public ScrollingBackground scrollingBackground;
@@ -31,7 +32,7 @@ public class Arkanoid extends Game {
 	}
 	public  void createNewGame(){
 
-		this.setScreen(new MenuScreen(this));
+		this.setScreen(new GameScreen(this));
 	}
 
 	@Override
