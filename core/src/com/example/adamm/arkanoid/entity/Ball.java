@@ -2,12 +2,11 @@ package com.example.adamm.arkanoid.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.example.adamm.arkanoid.MainGame;
+import com.example.adamm.arkanoid.Arkanoid;
 import com.example.adamm.arkanoid.TextureManager;
 
 
@@ -41,10 +40,10 @@ public class Ball extends Entity {
         hitboxL= new Rectangle((int)this.pos.x,(int)this.pos.y, 5 ,24 );
         hitboxR= new Rectangle((int)this.pos.x+19, (int)this.pos.y, 5 ,24 );
 
-        if(this.pos.x<=0||this.pos.x>= MainGame.WIDTH-19)
+        if(this.pos.x<=0||this.pos.x>= Arkanoid.WIDTH-19)
             this.direction.x=0-this.direction.x;
 
-        if(this.pos.y>=MainGame.HEIGHT)
+        if(this.pos.y>= Arkanoid.HEIGHT)
             this.direction.y=0-this.direction.y;
         Brick b;
 

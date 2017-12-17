@@ -3,7 +3,7 @@ package com.example.adamm.arkanoid.entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.example.adamm.arkanoid.MainGame;
+import com.example.adamm.arkanoid.Arkanoid;
 import com.example.adamm.arkanoid.TextureManager;
 import com.example.adamm.arkanoid.camera.OrthoCamera;
 
@@ -41,12 +41,12 @@ public class Player extends Entity {
 
         if(Gdx.input.isTouched()) {
             touch = camera.unprojectCoordinates(Gdx.input.getX(), Gdx.input.getY());
-            if (touch.x < MainGame.WIDTH / 2)
-                if(this.pos.x>50&&this.pos.x<MainGame.WIDTH-50)
+            if (touch.x < Arkanoid.WIDTH / 2)
+                if(this.pos.x>50&&this.pos.x< Arkanoid.WIDTH-50)
                     setDirection(-300, 0);
                 else setDirection(0,0);
             else
-            if(this.pos.x>50&&this.pos.x<MainGame.WIDTH-50)
+            if(this.pos.x>50&&this.pos.x< Arkanoid.WIDTH-50)
                 setDirection(300, 0);
             else setDirection(0,0);
         }
@@ -61,7 +61,7 @@ public class Player extends Entity {
         else if(Gdx.input.getAccelerometerX()<(-0.4))
         {
             //float a=200+(Gdx.input.getAccelerometerX()*(30));
-            if(this.pos.x<MainGame.WIDTH-30)
+            if(this.pos.x< Arkanoid.WIDTH-30)
             setDirection(300, 0);
         }
         else {setDirection(0,0);}

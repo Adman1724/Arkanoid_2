@@ -8,13 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.example.adamm.arkanoid.Level.Level;
-import com.example.adamm.arkanoid.MainGame;
+import com.example.adamm.arkanoid.Arkanoid;
 import com.example.adamm.arkanoid.camera.OrthoCamera;
-import com.example.adamm.arkanoid.screen.GameOverScreen;
-import com.example.adamm.arkanoid.screen.ScreenManger;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by adamm on 11/5/2017.
@@ -29,6 +24,7 @@ public class EntityManager {
     private Level level=new Level(1);
     private Score score;
     private Lives lives;
+    final Arkanoid game;
     BitmapFont font = new BitmapFont();
     Sound gameOver = Gdx.audio.newSound(Gdx.files.internal("Sounds/gameover.wav"));
 
@@ -37,8 +33,9 @@ public class EntityManager {
 
 
 
-    public EntityManager(OrthoCamera camera){
+    public EntityManager(OrthoCamera camera, final Arkanoid game){
         level.loadSave();
+        this.game=game;
         bricks=new Array<Brick>();
         Vector2 v=new Vector2(20,800);
         for(int i=0;i<6;i++){
@@ -72,7 +69,7 @@ public class EntityManager {
         if(lives.getLivesCount()<0){
            gameOver.play();
 
-            MainGame.createGameOver(score.getScoreCount());
+            game.createGameOver(score.getScoreCount());
         }
 
 

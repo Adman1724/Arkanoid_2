@@ -18,8 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.example.adamm.arkanoid.MainGame;
-
+import com.example.adamm.arkanoid.Arkanoid;
+import com.badlogic.gdx.Screen;
 
 
 
@@ -27,7 +27,7 @@ import com.example.adamm.arkanoid.MainGame;
  * Created by adamm on 12/16/2017.
  */
 
-public class GameOverScreen extends Screen {
+public class GameOverScreen implements Screen {
     private static final int BANNER_WIDTH=350;
     private static final int BANNER_HEIGHT=200;
    public BitmapFont scorefont = new BitmapFont();
@@ -39,10 +39,12 @@ public class GameOverScreen extends Screen {
     private ImageButton playButton;
     private Stage stage;
     Texture gameOverBanner;
+    final Arkanoid game;
 
-    public GameOverScreen(){}
-    public GameOverScreen(int score){
+
+    public GameOverScreen(int score, final Arkanoid game){
         this.score=score;
+        this.game=game;
         Preferences prefs=Gdx.app.getPreferences("rkanoid2");
         this.highscore=prefs.getInteger("highscore", 0);
         if(score>highscore){
@@ -64,7 +66,7 @@ public class GameOverScreen extends Screen {
             @Override
             public boolean handle(Event event)
             {
-                MainGame.createNewGame();
+                game.createNewGame();
                 return true;
             }
         });
@@ -75,17 +77,17 @@ public class GameOverScreen extends Screen {
 
     }
 
-    @Override
+
     public void create() {
 
     }
 
-    @Override
+
     public void update() {
 
     }
 
-    @Override
+
     public void render(SpriteBatch sb) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -101,6 +103,29 @@ public class GameOverScreen extends Screen {
 
 
         sb.end();
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        game.batch.begin();
+        game.batch.draw(gameOverBanner,Gdx.graphics.getWidth()/2-BANNER_WIDTH/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-15,BANNER_WIDTH,BANNER_HEIGHT);
+        GlyphLayout scoreLayout =new GlyphLayout(scorefont, "Score: \n"+score, Color.WHITE, 0 , Align.left, false);
+        GlyphLayout highscoreLayout =new GlyphLayout(scorefont, "HighScore: \n"+highscore, Color.WHITE, 0 , Align.left, false);
+        scorefont.draw(game.batch,scoreLayout,Gdx.graphics.getWidth()/2-scoreLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-15*2);
+        scorefont.draw(game.batch,highscoreLayout,Gdx.graphics.getWidth()/2-highscoreLayout.width/2,Gdx.graphics.getHeight()-BANNER_HEIGHT-scoreLayout.height-15*3);
+        //stage.act(Gdx.graphics.getDeltaTime()); //Perform ui logic
+        //stage.draw();
+
+
+        game.batch.end();
     }
 
     @Override
@@ -121,6 +146,11 @@ public class GameOverScreen extends Screen {
 
     @Override
     public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
 
     }
 

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.example.adamm.arkanoid.MainGame;
+import com.example.adamm.arkanoid.Arkanoid;
 
 
 public class OrthoCamera extends OrthographicCamera {
@@ -19,7 +19,7 @@ public class OrthoCamera extends OrthographicCamera {
     Vector2 pos;
 
     public OrthoCamera() {
-        this(new VirtualViewport((float)MainGame.WIDTH, (float)MainGame.HEIGHT));
+        this(new VirtualViewport((float) Arkanoid.WIDTH, (float) Arkanoid.HEIGHT));
     }
 
     public OrthoCamera(VirtualViewport virtualViewport) {
@@ -72,7 +72,7 @@ public class OrthoCamera extends OrthographicCamera {
     }
 
     public void resize() {
-        VirtualViewport virtualViewport = new VirtualViewport((float)MainGame.WIDTH, (float)MainGame.HEIGHT);
+        VirtualViewport virtualViewport = new VirtualViewport((float) Arkanoid.WIDTH, (float) Arkanoid.HEIGHT);
         this.setVirtualViewport(virtualViewport);
         this.updateViewport();
     }

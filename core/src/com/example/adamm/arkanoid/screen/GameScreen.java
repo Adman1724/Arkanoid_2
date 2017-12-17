@@ -1,31 +1,38 @@
 package com.example.adamm.arkanoid.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+import com.example.adamm.arkanoid.Arkanoid;
 import com.example.adamm.arkanoid.camera.OrthoCamera;
-import com.example.adamm.arkanoid.entity.Brick;
 import com.example.adamm.arkanoid.entity.EntityManager;
-import com.example.adamm.arkanoid.entity.Player;
 
 /**
  * Created by adamm on 11/1/2017.
  */
 
-public class GameScreen extends Screen {
+public class GameScreen implements Screen {
     private OrthoCamera camera;
     private EntityManager EM;
+     Arkanoid game;
+    public SpriteBatch batch;
     public GameScreen(){
         this.create();
     }
-    @Override
-    public void create() {
-        camera=new OrthoCamera();
-        EM=new EntityManager(camera);
+    public GameScreen( Arkanoid game){
+        this.game=game;
+        camera=game.camera;
+        this.create();
     }
 
-    @Override
+    public void create() {
+
+        EM=new EntityManager(camera, game);
+
+    }
+
+
     public void update() {
         camera.update();
 
@@ -33,18 +40,29 @@ public class GameScreen extends Screen {
         EM.update();
     }
 
-    @Override
+
     public void render(SpriteBatch sb) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        sb.setProjectionMatrix(camera.combined);
-        sb.begin();
+        batch=sb;
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
 
 
-        EM.render(sb);
-        sb.end();
+        EM.render(batch);
+        batch.end();
     }
 
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
 
     @Override
     public void resize(int width, int height) {
@@ -63,6 +81,11 @@ public class GameScreen extends Screen {
 
     @Override
     public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
 
     }
 
