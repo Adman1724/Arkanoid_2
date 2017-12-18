@@ -17,7 +17,7 @@ pretože v rôznych inkarnáciách sa Breakout objavuje aj dnes. Hra stavia na p
 
 ## Obrazky
 ![alt text](https://raw.githubusercontent.com/Adman1724/Arkanoid_2/master/android/assets/Screen1.png)
-![alt text](https://raw.githubusercontent.com/Adman1724/Arkanoid_2/master/android/assets/Screen2.png)
+![alt text](https://raw.githubusercontent.com/Adman1724/Arkanoid_2/master/android/assets/Screen2png.png)
 
 
 
