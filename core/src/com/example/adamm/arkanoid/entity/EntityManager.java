@@ -87,6 +87,8 @@ public class EntityManager {
 
             levels++;
             levelLoad();
+            ball.pos.x=300;
+            ball.pos.y=300;
 
         }
 

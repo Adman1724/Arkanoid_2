@@ -88,7 +88,7 @@ public class MenuScreen implements Screen {
                 Gdx.app.exit();
 
             }
-            Rectangle playRec = new Rectangle(x, game.HEIGHT-PLAY_BUTTON_Y, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
+            Rectangle playRec = new Rectangle(x, game.HEIGHT-PLAY_BUTTON_Y-50, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT);
             Gdx.app.log("kokot", ""+Gdx.input.getX()+"y:"+Gdx.input.getY());
             if(playRec.contains(Gdx.input.getX(),Gdx.input.getY())){
 

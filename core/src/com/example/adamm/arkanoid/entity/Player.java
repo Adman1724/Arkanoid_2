@@ -73,6 +73,12 @@ public class Player extends Entity {
         hitboxD= new Rectangle(pos.x+69, pos.y, 23 ,48 );
         hitboxE= new Rectangle(pos.x+93, pos.y, 23 ,48 );
         hitboxS= new Rectangle(pos.x+52, pos.y, 11 ,48 );
+        if(pos.x>Arkanoid.WIDTH){
+            pos.x=-141;
+        }
+        if(pos.x+141<0){
+            pos.x=Arkanoid.WIDTH;
+        }
 
 
         if(game.getBall().getHitbox().overlaps(hitboxA)&&game.getBall().getHitbox().overlaps(hitboxB)){

@@ -22,8 +22,8 @@ public class Score extends Entity  {
     }
     @Override
     public void update() {
-        accelX = Gdx.input.getAccelerometerX();
-        count=""+accelX;
+
+        count=""+scoreCount;
 
     }
     public int getScoreCount(){
