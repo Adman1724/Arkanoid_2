@@ -10,8 +10,9 @@ import com.example.adamm.arkanoid.Arkanoid;
 import com.example.adamm.arkanoid.TextureManager;
 
 
-
 import java.util.Iterator;
+
+import javax.naming.Context;
 
 /**
  * Created by adamm on 11/5/2017.
@@ -24,6 +25,7 @@ public class Ball extends Entity {
     private Rectangle hitboxU ;
     private Rectangle hitboxD ;
     private Array<Brick> arr;
+
     private EntityManager EM;
     public Ball( Vector2 pos, Vector2 direction) {
         super(TextureManager.BALL, pos, direction);
@@ -41,11 +43,17 @@ public class Ball extends Entity {
         hitboxR= new Rectangle((int)this.pos.x+19, (int)this.pos.y, 5 ,24 );
 
         if(this.pos.x<=0||this.pos.x>= Arkanoid.WIDTH-19)
-            this.direction.x=0-this.direction.x;
+        { this.direction.x=0-this.direction.x;
+            if(this.pos.x<=0)this.pos.x=this.pos.x+10;
+            if(this.pos.x>=Arkanoid.WIDTH-19)this.pos.x=this.pos.x-10;
+
+        }
+
 
         if(this.pos.y>= Arkanoid.HEIGHT)
             this.direction.y=0-this.direction.y;
         Brick b;
+
 
         arr=EM.getArray();
         Iterator it=arr.iterator();
@@ -62,6 +70,7 @@ public class Ball extends Entity {
                 this.direction.x=3;
                 this.direction.y=3;
                 EM.getLives().setLivesCount(EM.getLives().getLivesCount()-1);
+
 
             }
             if(wasRemove)
@@ -173,12 +182,12 @@ public class Ball extends Entity {
         this.direction.y=this.direction.y*y;
     }
     public void resetMove(){
-        if(direction.x>0) this.direction.x=2f;
+        if(direction.x>0) this.direction.x=1.5f;
 
-        if(direction.x<0)this.direction.x=-2f;
+        if(direction.x<0)this.direction.x=-1.5f;
 
-        if(direction.y>0)this.direction.y=2f;
-        if(direction.y<0)this.direction.y=-2f;
+        if(direction.y>0)this.direction.y=1.5f;
+        if(direction.y<0)this.direction.y=-1.5f;
 
     }
 }

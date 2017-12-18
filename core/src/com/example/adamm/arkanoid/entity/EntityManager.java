@@ -25,6 +25,8 @@ public class EntityManager {
     private Level level=new Level(1);
     private Score score;
     private Lives lives;
+    private boolean missle =false;
+    int levels;
     final Arkanoid game;
     BitmapFont font = new BitmapFont();
     Sound gameOver = Gdx.audio.newSound(Gdx.files.internal("Sounds/gameover.wav"));
@@ -35,12 +37,13 @@ public class EntityManager {
 
 
     public EntityManager(OrthoCamera camera, final Arkanoid game){
-        level.loadSave();
+        levels=0;
+        level.getlevels(levels);
         this.game=game;
         bricks=new Array<Brick>();
         Vector2 v=new Vector2(20,800);
         for(int i=0;i<6;i++){
-            for(int j=0;j<11;j++){
+            for(int j=0;j<12;j++){
                 brick1=new Brick(new Vector2(v.x,v.y),new Vector2(0,0),level.getInt(i,j));
                 v.set((v.x+48),v.y);
                 bricks.add(brick1);
@@ -55,7 +58,7 @@ public class EntityManager {
         ball.setEM(this);
         score=new Score(new Vector2(0,900),new Vector2(0,0),camera);
         lives=new Lives(new Vector2(100,900),new Vector2(0,0),camera);
-        lives.setLivesCount(0);
+        lives.setLivesCount(3);
 
 
     }
@@ -69,12 +72,43 @@ public class EntityManager {
         lives.update();
         if(lives.getLivesCount()<0){
            gameOver.play();
+
             game.createGameOver(this.getScore().getScoreCount());
+
+        }
+        boolean empty = true;
+        for (Brick ob : bricks) {
+            if (ob != null) {
+                empty = false;
+                break;
+            }
+        }
+        if(empty){
+
+            levels++;
+            levelLoad();
 
         }
 
 
 
+    }
+    public void levelLoad(){
+        level.getlevels(levels);
+
+        bricks=new Array<Brick>();
+        Vector2 v=new Vector2(20,800);
+        for(int i=0;i<6;i++){
+            for(int j=0;j<12;j++){
+                brick1=new Brick(new Vector2(v.x,v.y),new Vector2(0,0),level.getInt(i,j));
+                v.set((v.x+48),v.y);
+                bricks.add(brick1);
+            }
+            v.set(20,(v.y-30));
+        }
+
+
+        brick1=new Brick(new Vector2(0,750),new Vector2(0,0),2);
     }
     public void render(SpriteBatch sb){
 
